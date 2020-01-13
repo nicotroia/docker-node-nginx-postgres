@@ -1,0 +1,58 @@
+version: '3.7'
+
+services:
+  node0:
+    container_name: node0
+    build: ./node
+    environment:
+      NODE_PORT: '${NODE_PORT}'
+      MESSAGE: 'hello from instance 0'
+      PG_HOST: '${PG_HOST}'
+      PG_PORT: '${PG_PORT}'
+      PG_DATABASE: '${PG_DATABASE}'
+      PG_USER: '${PG_USER}'
+      PG_PASS: '${PG_PASS}'
+    depends_on:
+      - postgres0
+  
+  node1:
+    container_name: node1
+    build: ./node
+    environment:
+      NODE_PORT: '${NODE_PORT}'
+      MESSAGE: 'hello from instance 1'
+      PG_HOST: '${PG_HOST}'
+      PG_PORT: '${PG_PORT}'
+      PG_DATABASE: '${PG_DATABASE}'
+      PG_USER: '${PG_USER}'
+      PG_PASS: '${PG_PASS}'
+    depends_on:
+      - postgres0
+  
+  nginx0:
+    container_name: nginx0
+    build: ./nginx
+    environment: 
+      NODE_PORT: '${NODE_PORT}'
+    ports:
+      - '${NGINX_PORT}:80'
+    volumes:
+      - ${ROOT}/nginx/conf/nginx.conf:/etc/nginx/nginx.conf
+  
+  postgres0:
+    container_name: postgres0
+    build: ./postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: "${PG_PASS}"
+      PG_HOST: '${PG_HOST}'
+      PG_PORT: '${PG_PORT}'
+      PG_DATABASE: '${PG_DATABASE}'
+      PG_USER: '${PG_USER}'
+      PG_PASS: '${PG_PASS}'
+      PG_DATA: '${PG_DATA}'
+    ports:
+      - '${PG_PORT}:${PG_PORT}'
+    volumes:
+      - ${ROOT}/postgres/docker-entrypoint-initdb.d/initdb.sh:/docker-entrypoint-initdb.d/init.sh
+      - ${ROOT}/postgres/data:/var/lib/postgresql/data
