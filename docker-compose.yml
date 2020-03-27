@@ -5,6 +5,7 @@ services:
     container_name: node0
     build: ./node
     environment:
+      NODE_ID: '0'
       NODE_PORT: '${NODE_PORT}'
       MESSAGE: 'hello from instance 0'
       PG_HOST: '${PG_HOST}'
@@ -21,6 +22,7 @@ services:
     container_name: node1
     build: ./node
     environment:
+      NODE_ID: '1'
       NODE_PORT: '${NODE_PORT}'
       MESSAGE: 'hello from instance 1'
       PG_HOST: '${PG_HOST}'

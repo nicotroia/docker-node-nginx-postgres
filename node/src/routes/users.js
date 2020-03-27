@@ -1,9 +1,21 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
+const pool = require('../database');
+
+const router = express.Router();
+
+/* GET home page. */
+router.get('/', async (req, res, next) => {
+  const poolClient = await pool.connect();
+
+  const users = await poolClient.query('SELECT * FROM users');
+  console.log('user0', users.rows[0]);
+
+  poolClient.release();
+
+  res.render('index', {
+    users,
+  });
 });
 
 module.exports = router;

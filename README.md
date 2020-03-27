@@ -17,6 +17,11 @@ This sample project includes a basic node (express) app, spawned on 2 instances,
     * Copy project files to remote host: `docker-machine scp -r ./ my-project:/root/`
     * Modify .env to specify the project root on host `ROOT=/root`
 
+  - If you have permission issues
+    * Copy files to a temp directory: `docker-machine scp -r ./ my-project:/tmp/`
+    * Change group: `docker-machine ssh my-project sudo chgrp -R root /tmp`
+    * Copy files manually: `docker-machine ssh my-project sudo cp -a /tmp/. /root/`
+
 ## Start
 
 * Run `docker-compose -f docker-compose.yml up` to start the containers

@@ -1,4 +1,4 @@
-FROM mhart/alpine-node:latest as builder
+FROM mhart/alpine-node:13.7 as builder
 
 RUN apk update && apk add bash curl postgresql-client
 
