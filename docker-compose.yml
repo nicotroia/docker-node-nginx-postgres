@@ -7,7 +7,7 @@ services:
     environment:
       NODE_ID: '0'
       NODE_PORT: '${NODE_PORT}'
-      MESSAGE: 'hello from instance 0'
+      MESSAGE: 'Hello from node instance 0'
       PG_HOST: '${PG_HOST}'
       PG_PORT: '${PG_PORT}'
       PG_DATABASE: '${PG_DATABASE}'
@@ -24,7 +24,7 @@ services:
     environment:
       NODE_ID: '1'
       NODE_PORT: '${NODE_PORT}'
-      MESSAGE: 'hello from instance 1'
+      MESSAGE: 'Hello from node instance 1'
       PG_HOST: '${PG_HOST}'
       PG_PORT: '${PG_PORT}'
       PG_DATABASE: '${PG_DATABASE}'

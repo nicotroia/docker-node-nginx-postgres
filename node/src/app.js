@@ -23,10 +23,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
+// Only seed via the first node instance?
 if (process.env.NODE_ID === '0') {
   dbSeeder.seed((error) => {
-    if (error) console.log('seeding failed', error);
-    else console.log('seeding success');
+    if (error) console.log('Seeding failed', error);
+    else console.log('Seeding success');
   });
 }
 

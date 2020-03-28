@@ -4,17 +4,31 @@ const pool = require('../database');
 
 const router = express.Router();
 
-/* GET home page. */
+/* GET users data */
 router.get('/', async (req, res, next) => {
   const poolClient = await pool.connect();
 
-  const users = await poolClient.query('SELECT * FROM users');
-  console.log('user0', users.rows[0]);
+  let users;
+  try {
+    users = await poolClient.query('SELECT * FROM users');
+  }
+  catch (error) {
+    poolClient.release();
+
+    return res.json({
+      success: false,
+      message: error.message,
+    })
+  }
 
   poolClient.release();
 
-  res.render('index', {
-    users,
+  return res.json({
+    success: true,
+    data: {
+      users: users.rows,
+    },
+    message: process.env.MESSAGE,
   });
 });
 
