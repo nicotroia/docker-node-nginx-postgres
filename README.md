@@ -11,11 +11,11 @@ This sample project includes a basic node (express) app, spawned on 2 instances,
 
 * Run `docker-machine create -d virtualbox my-project` to create a machine on virtualbox
 * View the [machine docs](https://docs.docker.com/v17.12/machine/drivers/) for specific commands for other drivers
+* Setup shared folders on VirtualBox app with project name `/my-project`
 * Run `eval $(docker-machine env my-project)` to run commands against the new machine
   - If you created a machine on a remote host you'll need to copy files there
-    * Find pwd of ssh user: `docker-machine ssh my-project pwd` (for me, `/root`)
-    * Copy project files to remote host: `docker-machine scp -r ./ my-project:/root/`
-    * Modify .env to specify the project root on host `ROOT=/root`
+    <!-- * Find pwd of ssh user: `docker-machine ssh my-project pwd` (for me, `/root`) -->
+    * Modify .env to specify the shared folder on host `ROOT=/my-project`
 
   - If you have permission issues
     * Copy files to a temp directory: `docker-machine scp -r ./ my-project:/tmp/`

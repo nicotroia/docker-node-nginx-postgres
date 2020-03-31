@@ -13,4 +13,4 @@ COPY . ./
 EXPOSE ${NODE_PORT}
 
 CMD until pg_isready --username=${PG_USER} --host=${PG_HOST}; do sleep 1; done && \
-  node src/bin/www
+  npm run start
